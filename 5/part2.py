@@ -1,14 +1,7 @@
 from utils import *
+from part1 import convert, find_numbers
+import numpy as np
 import re
-
-def convert(source, map):
-    for destination_range_start, source_range_start, range_length in map:
-        if source <= int(source_range_start) + int(range_length) - 1 and source >= int(source_range_start):
-            return int(destination_range_start) + source - int(source_range_start)
-    return source
-
-def find_numbers(line):
-    return re.findall(r'\d+', line)
 
 def find_lowest_location_numner(file_name):
     with open(file_name, 'r') as file:
@@ -23,14 +16,17 @@ def find_lowest_location_numner(file_name):
             conversion_map.append(find_numbers(piece))
         almanac.append(conversion_map)
     
-    sources = almanac[0][0]
+    source_map = np.reshape(np.array(almanac[0][0]), (-1,2)).astype(int)
+    sources = []
+    for source in source_map:
+        sources += [*range(source[0],source[0]+source[1])]
+    
     for part in almanac[1:]:
         for i, source in enumerate(sources):
-            next_source = convert(int(source), part)
+            next_source = convert(source, part)
             sources[i] = next_source
 
     return min(sources)
 
 if __name__ == "__main__":
     print(find_lowest_location_numner("input.txt"))
-    
