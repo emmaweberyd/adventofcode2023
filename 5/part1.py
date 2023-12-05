@@ -2,12 +2,9 @@ from utils import *
 import re
 
 def convert(source, map):
-    for line in map:
-        source_range = [*range(int(line[1]), int(line[1])+int(line[2]))]
-        destination_range = [*range(int(line[0]), int(line[0])+int(line[2]))]
-        source_to_destination = dict(zip(source_range, destination_range))
-        if source in source_to_destination:
-            return source_to_destination[source]
+    for destination_range_start, source_range_start, range_length in map:
+        if source <= int(source_range_start) + int(range_length) - 1 and source >= int(source_range_start):
+            return int(destination_range_start) + source - int(source_range_start)
     return source
 
 def find_numbers(line):
@@ -24,10 +21,10 @@ def find_lowest_location_numner(file_name):
 
     almanac = []
     for part in parts:
-        convertion_map =[]
+        conversion_map =[]
         for piece in part:
-            convertion_map.append(find_numbers(piece))
-        almanac.append(convertion_map)
+            conversion_map.append(find_numbers(piece))
+        almanac.append(conversion_map)
     
     sources = almanac[0][0]
     for part in almanac[1:]:
@@ -38,5 +35,5 @@ def find_lowest_location_numner(file_name):
     return min(sources)
 
 if __name__ == "__main__":
-    print(find_lowest_location_numner("test_input.txt"))
+    print(find_lowest_location_numner("input.txt"))
     
