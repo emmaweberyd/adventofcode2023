@@ -3,7 +3,7 @@ from part1 import convert, find_numbers
 import numpy as np
 import re
 
-def find_lowest_location_numner(file_name):
+def get_almanac_from_file(file_name):
     with open(file_name, 'r') as file:
         data = file.read()
 
@@ -21,7 +21,12 @@ def find_lowest_location_numner(file_name):
     for source in source_map:
         sources += [*range(source[0],source[0]+source[1])]
     
-    for part in almanac[1:]:
+    return sources, almanac[1:]
+
+def find_lowest_location_numner(file_name):
+    sources, almanac = get_almanac_from_file(file_name)
+
+    for part in almanac:
         for i, source in enumerate(sources):
             next_source = convert(source, part)
             sources[i] = next_source
@@ -29,4 +34,4 @@ def find_lowest_location_numner(file_name):
     return min(sources)
 
 if __name__ == "__main__":
-    print(find_lowest_location_numner("input.txt"))
+    print(find_lowest_location_numner("test_input.txt"))
