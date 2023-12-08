@@ -1,0 +1,10 @@
+LR
+
+KKA = (KKB, XXX)
+KKB = (XXX, KKZ)
+KKZ = (KKB, XXX)
+SSA = (SSB, XXX)
+SSB = (SSC, SSC)
+SSC = (SSZ, SSZ)
+SSZ = (SSB, SSB)
+XXX = (XXX, XXX)
