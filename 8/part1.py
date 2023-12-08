@@ -23,14 +23,10 @@ def nr_of_steps(input_file):
 
     node = 'AAA'
     steps = 0
-    instruction_index = 0
     while(node != 'ZZZ'):
-        if instruction_index == len(instructions):
-            instruction_index = 0
-        instruction = instructions[instruction_index]
-        instruction_index += 1
-        steps += 1
+        instruction = instructions[steps % len(instructions)]
         node = nodes[node][instruction]
+        steps += 1
 
     return steps
 
