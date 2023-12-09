@@ -3,10 +3,7 @@ import numpy as np
 
 def get_next_history_value(sequence):
     diff_sequence = np.diff(sequence)
-   
-    if np.all(sequence==0):
-        return 0
-    return sequence[-1] + get_next_history_value(diff_sequence)
+    return sequence[0] if set(sequence) == set(sequence[0:1]) else sequence[-1] + get_next_history_value(diff_sequence)
 
 def get_history_sum(file_name):
     sequences = parse_input(file_name)
